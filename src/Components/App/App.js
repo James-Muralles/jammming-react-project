@@ -3,6 +3,7 @@ import './App.css';
 import SearchBar from '../SearchBar/SearchBar'
 import SearchResults from '../SearchResults/SearchResults'
 import Playlist from '../Playlist/Playlist'
+import Tracklist from "../Tracklist/Tracklist";
 
 class App extends React.Component {
 
@@ -42,6 +43,7 @@ class App extends React.Component {
     });
 
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track){
@@ -53,6 +55,16 @@ class App extends React.Component {
     this.setState({playListTracks: tracks})
   }
 
+  removeTrack(track){
+    let tracks = this.state.PlayListTracks;
+    tracks = tracks.filter(currentTrack => currentTrack.id !== track.id);
+
+    this.setState({
+      playListTracks: tracks
+    });
+
+  }
+
   render(){
     return <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
@@ -60,7 +72,7 @@ class App extends React.Component {
         <SearchBar/>
         <div className="App-playlist">
           <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults}/>
-          <Playlist playListName={this.state.playListName} playListTracks={this.state.playListTracks}/>
+          <Playlist onRemove={this.removeTrack}  playListName={this.state.playListName} playListTracks={this.state.playListTracks}/>
         </div>
       </div>
     </div>
