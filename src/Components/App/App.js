@@ -11,8 +11,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults:[],
-
-      playListName: 'Generic Playlist',
+      playlistName: 'Generic Playlist',
       PlayListTracks: []
 
     };
@@ -47,16 +46,16 @@ class App extends React.Component {
 
   updatePlaylistName(name){
     this.setState({
-      playListName: name
+      playlistName: name
     })
   }
 
   savePlaylist(){
-    const trackUris = this.state.playListTracks.map(track => track.uri);
-    Spotify.savePlaylist(this.state.playListName, trackUris).then(() => {
+    const trackUris = this.state.PlayListTracks.map(track => track.uri);
+    Spotify.savePlaylist(this.state.playlistName, trackUris).then(() => {
       this.setState({
         playlistName: 'New Playlist',
-        playListTracks: []
+        PlayListTracks: []
       })
     })
   }
@@ -79,7 +78,7 @@ class App extends React.Component {
         <SearchBar onSearch={this.search}/>
         <div className="App-playlist">
           <SearchResults onAdd={this.addTrack} searchResults={this.state.searchResults}/>
-          <Playlist onSave={this.savePlaylist} onRemove={this.removeTrack}  playListName={this.state.playListName} PlayListTracks={this.state.PlayListTracks} onNameChange={this.updatePlaylistName}/>
+          <Playlist onSave={this.savePlaylist} onRemove={this.removeTrack}  playlistName={this.state.playlistName} PlayListTracks={this.state.PlayListTracks} onNameChange={this.updatePlaylistName}/>
         </div>
       </div>
     </div>
